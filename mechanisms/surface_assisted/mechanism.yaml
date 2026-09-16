@@ -1,0 +1,13 @@
+schema_version: 1
+id: surface_assisted
+display_name: Surface-assisted ammonia mechanism
+chemistry_scope: gas_and_surface
+surface_reactions: enabled
+source_file: null
+source_file_policy: external_or_project_managed
+sha256: null
+surface_site_initialization: required
+notes: >-
+  Attach the surface-enabled mechanism only after its provenance, active
+  surface species, site-density convention, and SHA-256 are recorded.  Do not
+  substitute the gas-phase mechanism for this case family.

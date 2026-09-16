@@ -1,0 +1,13 @@
+schema_version: 1
+id: surface_vs_gas
+description: Compare mechanism families only after their mechanism hashes and surface metadata validate.
+inputs:
+  required_mechanisms: [gas_phase, surface_assisted]
+  phases: [0, 2]
+plots:
+  - id: nh3_by_mechanism
+    x: time_ms
+    y: NH3_cm3
+    group_by: mechanism
+    output: nh3_by_mechanism.png
+output_directory: generated_figures/surface_vs_gas

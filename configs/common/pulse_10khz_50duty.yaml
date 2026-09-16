@@ -1,0 +1,11 @@
+schema_version: 1
+id: pulse_10khz_50duty
+waveform: square_wave
+frequency_Hz: 10000.0
+duty_cycle: 0.5
+EN_on_Td: 140.0
+EN_off_Td: 0.0
+derived:
+  period_s: 1.0e-4
+  t_on_s: 5.0e-5
+  t_off_s: 5.0e-5

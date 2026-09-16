@@ -1,0 +1,21 @@
+schema_version: 1
+id: surface-cstr-tau50ms
+includes:
+  - ../../common/pulse_10khz_50duty.yaml
+  - ../../common/solver_stable.yaml
+mechanism: surface_assisted
+reactor:
+  id: cstr_0d
+  flow: enabled
+  residence_time_s: 5.0e-2
+  flow_species: gas_heavy_species
+  excluded_from_flow: [electrons, algebraic_third_bodies, surface_states]
+  surface_reactions: enabled
+  surface_site_initialization: required
+feed:
+  gas_temperature_K: 300.0
+  mole_fractions: {N2: 0.1, H2: 0.9}
+  electron_density_cm3: 1.17e8
+run:
+  horizon_ms: 200.0
+status: requires_surface_mechanism

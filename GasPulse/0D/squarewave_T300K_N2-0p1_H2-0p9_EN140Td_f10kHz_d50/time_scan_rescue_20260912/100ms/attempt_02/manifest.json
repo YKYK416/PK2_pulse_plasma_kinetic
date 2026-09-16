@@ -1,0 +1,40 @@
+{
+  "created_at": "2026-09-12T14:15:15",
+  "parameters": {
+    "model": "closed 0D pure-gas pulsed reactor",
+    "mechanism": "Hong gas-phase mechanism",
+    "gas_temperature_K": 300.0,
+    "x_N2": 0.1,
+    "x_H2": 0.9,
+    "electron_density_cm3": 117000000.0,
+    "waveform": "square wave",
+    "EN_on_Td": 140.0,
+    "EN_off_Td": 0.0,
+    "frequency_Hz": 10000.0,
+    "duty_cycle": 0.5,
+    "cycles": 1000,
+    "total_time_s": 0.1,
+    "atol": 1.0,
+    "rtol": 0.0001
+  },
+  "solver_rescue": {
+    "ATOL_cm3": 100000000.0,
+    "RTOL": 0.0001,
+    "MXSTEP": 500000,
+    "n_sub_on": 48,
+    "n_sub_off": 32
+  },
+  "model_boundary": "closed 0D pure gas; no CSTR flow; all surface reactions remain disabled",
+  "provenance": {
+    "kinet_sha256": "bbfa12a117ccae2fc45c342c6c45a429a9471b2b91be5da57a5dafa8e007e35d",
+    "driver_sha256": "d0f2065d6a8a8044bb99b8aca9923a2b8e9a42a2098d86a531c0617f3b74d8ed",
+    "module_sha256": "52a962641a8243969c1f9d78f1a355d7574a8cefe178d2bbe42ebf871f36a4a6"
+  },
+  "return_code": 0,
+  "validation": {
+    "accepted": true,
+    "rows": 2001,
+    "final_time_s": 0.1,
+    "NH3_final_cm3": 1681160000000000.0
+  }
+}

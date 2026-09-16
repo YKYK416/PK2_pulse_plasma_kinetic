@@ -1,0 +1,11 @@
+schema_version: 1
+id: solver_stable
+ATOL_cm3: 1.0e8
+RTOL: 1.0e-4
+MXSTEP: 500000
+n_sub_on: 48
+n_sub_off: 32
+notes: >-
+  Stabilized long-time settings used by the accepted gas-phase closed-0D rescue
+  trajectories.  Revalidate before applying them to a different mechanism or
+  reactor boundary.

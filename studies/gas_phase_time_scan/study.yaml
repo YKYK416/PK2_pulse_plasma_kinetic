@@ -1,0 +1,9 @@
+schema_version: 1
+id: gas_phase_time_scan
+title: Gas-phase closed-0D NH3 accumulation time scan
+case_family: configs/gas_phase/closed_0d/default.yaml
+legacy_data_root: GasPulse/0D/squarewave_T300K_N2-0p1_H2-0p9_EN140Td_f10kHz_d50/time_scan_rescue_20260912
+accepted_horizons_ms: [10.0, 50.0, 100.0, 200.0]
+plot_recipes:
+  - scripts/plot/recipes/gas_phase_time_scan.yaml
+status: accepted_legacy_data

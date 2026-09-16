@@ -1,0 +1,18 @@
+schema_version: 1
+id: surface-closed0d-default
+includes:
+  - ../../common/pulse_10khz_50duty.yaml
+  - ../../common/solver_stable.yaml
+mechanism: surface_assisted
+reactor:
+  id: closed_0d
+  flow: disabled
+  surface_reactions: enabled
+  surface_site_initialization: required
+initial_state:
+  gas_temperature_K: 300.0
+  mole_fractions: {N2: 0.1, H2: 0.9}
+  electron_density_cm3: 1.17e8
+run:
+  horizon_ms: 200.0
+status: requires_surface_mechanism

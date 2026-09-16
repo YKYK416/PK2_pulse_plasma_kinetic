@@ -3,6 +3,13 @@ __pycache__/
 *.py[cod]
 .claude_resources*.json
 
+# Local simulation cases and batch-rendered figures.  The README files are
+# intentionally retained so a fresh clone documents the expected layout.
+/run_data/*
+!/run_data/README.md
+/generated_figures/*
+!/generated_figures/README.md
+
 # Generated native runtime and solver artefacts
 **/build/
 **/*.exe

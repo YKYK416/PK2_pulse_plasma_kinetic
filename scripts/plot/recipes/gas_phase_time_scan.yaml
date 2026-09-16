@@ -1,0 +1,19 @@
+schema_version: 1
+id: gas_phase_time_scan
+study: gas_phase_time_scan
+inputs:
+  manifest_selector: gas_phase/closed_0d
+  phases: [0, 2]
+  species: [NH3]
+plots:
+  - id: nh3_envelope_linear
+    x: time_ms
+    y: NH3_cm3
+    y_scale: linear
+    output: nh3_envelope_linear.png
+  - id: nh3_envelope_log
+    x: time_ms
+    y: NH3_cm3
+    y_scale: log
+    output: nh3_envelope_log.png
+output_directory: generated_figures/gas_phase_time_scan

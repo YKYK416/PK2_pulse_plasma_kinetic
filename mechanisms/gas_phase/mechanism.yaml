@@ -1,0 +1,12 @@
+schema_version: 1
+id: gas_phase
+display_name: Hong gas-phase mechanism
+chemistry_scope: gas_phase
+surface_reactions: disabled
+source_file: null
+source_file_policy: external_or_project_managed
+sha256: null
+notes: >-
+  The accepted legacy closed-0D dataset used a Hong gas-phase mechanism with
+  48 species and 469 reactions.  Record the exact source path and SHA-256 when
+  a runnable local mechanism is attached.

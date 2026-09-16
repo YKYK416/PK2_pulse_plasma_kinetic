@@ -33,15 +33,28 @@ The 10--200 ms raw endpoint trajectories and per-cycle summaries are versioned i
 ## Repository layout
 
 ```text
-GasPulse/0D/
-├── scripts/                         # run and plotting drivers
-├── squarewave_.../analysis/         # generated NH3 figures
-└── squarewave_.../time_scan_.../    # accepted CSV trajectories and manifests
-docs/
-└── RESULTS_AND_LIMITATIONS.md       # interpretation, data status, and known limitations
+configs/                             # versioned mechanism, reactor, pulse, and solver inputs
+mechanisms/                          # mechanism metadata and source/provenance instructions
+src/pk2_pulse/                       # shared future runtime and plotting implementation
+scripts/                             # command and plotting-recipe documentation
+studies/                             # versioned case sets and figure plans
+run_data/                            # local builds, raw case outputs, and logs (Git-ignored)
+generated_figures/                   # local batch-rendered figures (Git-ignored)
+docs/                                # scientific scope, reproducibility notes, selected final figures
+GasPulse/0D/                         # preserved legacy snapshot and accepted closed-0D data
 ```
 
-Build products, DLLs, compiler objects, BOLSIG runtime files, execution logs, and interrupted calculations are intentionally excluded through `.gitignore`.
+The repository is organized around four future model families: gas-phase and
+surface-assisted chemistry, each in closed 0D and 0D CSTR form.  A case is
+defined by a versioned configuration, while its large local calculation output
+is written under `run_data/` and is not committed.  Plotting code and plot
+recipes are versioned; batch-rendered images are not, unless a selected final
+figure is copied into `docs/figures/`.  See
+[the project-structure guide](docs/PROJECT_STRUCTURE.md).
+
+Build products, DLLs, compiler objects, BOLSIG runtime files, execution logs,
+large local cases, and batch-rendered figures are intentionally excluded
+through `.gitignore`.
 
 ## Running the local workflow
 

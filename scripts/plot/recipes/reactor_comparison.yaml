@@ -1,0 +1,14 @@
+schema_version: 1
+id: reactor_comparison
+description: Compare closed 0D and 0D CSTR only after both input manifests validate.
+inputs:
+  required_reactors: [closed_0d, cstr_0d]
+  matching_fields: [mechanism, gas_temperature_K, mole_fractions, waveform]
+  phases: [0, 2]
+plots:
+  - id: nh3_by_reactor
+    x: time_ms
+    y: NH3_cm3
+    group_by: reactor
+    output: nh3_by_reactor.png
+output_directory: generated_figures/reactor_comparison

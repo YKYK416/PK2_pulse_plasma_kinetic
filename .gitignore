@@ -1,0 +1,26 @@
+# Python cache and local resource snapshots
+__pycache__/
+*.py[cod]
+.claude_resources*.json
+
+# Generated native runtime and solver artefacts
+**/build/
+**/*.exe
+**/*.dll
+**/*.lib
+**/*.o
+**/*.mod
+**/bolsigdb.*
+**/Ele.dat
+**/Tgas.dat
+**/data_in.dat
+**/other_para.dat
+**/REACTION_E_*.DAT
+**/ENTROPY_*.DAT
+
+# Machine-specific execution logs and interrupted exploratory runs
+**/*.log
+GasPulse/0D/squarewave_T300K_N2-0p1_H2-0p9_EN140Td_f10kHz_d50/build/time_scan/
+GasPulse/0D/squarewave_T300K_N2-0p1_H2-0p9_EN140Td_f10kHz_d50/manifest.json
+GasPulse/0D/squarewave_T300K_N2-0p1_H2-0p9_EN140Td_f10kHz_d50/run_status.json
+GasPulse/0D/squarewave_cstr_tau50ms_T300K_N2-0p1_H2-0p9_EN140Td_f10kHz_d50/

@@ -3,11 +3,12 @@ id: surface_assisted
 display_name: Surface-assisted ammonia mechanism
 chemistry_scope: gas_and_surface
 surface_reactions: enabled
-source_file: null
-source_file_policy: external_or_project_managed
-sha256: null
+source_file: kinet_source.txt
+source_file_policy: project_managed
+source_provenance: PK1/Hong/Shao2024_JACSAu/dft_microkinetic_windows_case/kinet_source.txt
+sha256: 7ce49610345024ce7505433f27bf2dea3ab07d139b6130470c0464fbd0893cc5
 surface_site_initialization: required
 notes: >-
-  Attach the surface-enabled mechanism only after its provenance, active
-  surface species, site-density convention, and SHA-256 are recorded.  Do not
+  Project-managed Shao 2024 DFT microkinetic source.  Confirm the active
+  surface species and site-density convention before execution; do not
   substitute the gas-phase mechanism for this case family.

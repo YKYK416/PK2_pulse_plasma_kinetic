@@ -58,7 +58,7 @@ through `.gitignore`.
 
 ## Running the local workflow
 
-The scripts were developed on Windows and expect the local Hong/ZDPlasKin helper stack already available in the author's wider workspace. In particular, `run_square_wave_0d.py` refers to a local Hong runtime/tool directory and a mechanism file; these external paths are not included in this repository. The archived accepted CSV files therefore remain the canonical data for this snapshot.
+The scripts were developed on Windows and expect the local Hong/ZDPlasKin helper stack already available in the author's wider workspace. The selected gas-phase and surface-assisted mechanism sources are versioned under `mechanisms/`; the legacy drivers still refer to a machine-local Hong runtime/tool directory. The archived accepted CSV files therefore remain the canonical data for this snapshot.
 
 With those prerequisites available, a local Python environment can run the baseline driver and the rescue time scan, for example:
 

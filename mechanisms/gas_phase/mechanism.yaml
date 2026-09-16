@@ -3,10 +3,10 @@ id: gas_phase
 display_name: Hong gas-phase mechanism
 chemistry_scope: gas_phase
 surface_reactions: disabled
-source_file: null
-source_file_policy: external_or_project_managed
-sha256: null
+source_file: kinet.inp
+source_file_policy: project_managed
+source_provenance: PK1/Hong/Reproduction/2017Hong/literature_extract_2017_2018_corrected/kinet.inp
+sha256: d9b0da025e1eeeef42fa58963dadcc923366d89ad0621a8ab4516da966794f38
 notes: >-
-  The accepted legacy closed-0D dataset used a Hong gas-phase mechanism with
-  48 species and 469 reactions.  Record the exact source path and SHA-256 when
-  a runnable local mechanism is attached.
+  Project-managed copy of the corrected Hong 2017/2018 literature extraction.
+  Use the SHA-256 field to verify the runtime mechanism before a calculation.

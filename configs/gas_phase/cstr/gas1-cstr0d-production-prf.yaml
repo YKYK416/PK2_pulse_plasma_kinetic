@@ -1,0 +1,16 @@
+schema_version: 1
+id: gas1-cstr0d-production-prf
+includes:
+  - gas1_T400K_N2-0p5_H2-0p5_P1atm_tau1ms_scan.yaml
+run:
+  horizons_ms: [1000.0, 2000.0, 5000.0, 10000.0]
+  output_every_cycles: 100
+  timeout_s: 86400.0
+  solver_time_mode: phase_local
+  species_tolerance_mode: positive_radical_floor_unbounded
+n_sub_on: 240
+n_sub_off: 160
+notes: >-
+  Production-like Gas1 CSTR time scan after the six-anchor numerical
+  certification. This remains a diagnostic database run until the accepted
+  BOLSIG database is promoted; forward excitation records are unchanged.

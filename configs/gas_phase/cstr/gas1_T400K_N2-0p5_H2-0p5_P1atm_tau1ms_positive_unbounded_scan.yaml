@@ -1,0 +1,12 @@
+schema_version: 1
+id: gas1-cstr0d-T400K-N2-0p5-H2-0p5-P1atm-tau1ms-positive-unbounded-scan
+includes:
+  - gas1_T400K_N2-0p5_H2-0p5_P1atm_tau1ms_scan.yaml
+run:
+  solver_time_mode: phase_local
+  species_tolerance_mode: positive_unbounded
+notes: >-
+  Diagnostic numerical-stability scan only.  DVODE non-negative bound
+  retraction is disabled in the case-local generated module; rate evaluation
+  and accepted-state storage apply a non-negative projection.  Compare with
+  the scalar bounded baseline before using concentrations scientifically.

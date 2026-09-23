@@ -1,0 +1,9 @@
+schema_version: 1
+id: gas1-closed0d-T400K-N2-0p5-H2-0p5-P1atm-loose2-test-1ms
+includes:
+  - gas1_T400K_N2-0p5_H2-0p5_P1atm_numerical_test.yaml
+ATOL_cm3: 1.0e12
+RTOL: 1.0e-2
+notes: >-
+  Diagnostic only: intentionally loose tolerances to determine whether the
+  DVODE T+H=T messages are purely a warning-print threshold.

@@ -1,6 +1,5 @@
-"""Shared implementation namespace for PK2 pulse-plasma case tooling.
+"""Reusable, audited components for PK2 pulsed-plasma studies.
 
-The directory is intentionally introduced before migrating legacy ZDPlasKin
-drivers, so the migration can preserve accepted results and external-runtime
-checks.
+The active path is configuration -> BOLSIG audit -> ZDPlasKin runtime staging
+-> pulse execution. Archived scripts remain under ``GasPulse/0D``.
 """

@@ -1,80 +1,75 @@
-# PK2 pulse-plasma kinetic simulations
+# PK2 pulsed-plasma ammonia simulations
 
-This repository records a focused 0D plasma-kinetic study of square-wave pulsed ammonia synthesis using the Hong gas-phase mechanism. It currently contains the reproducible local drivers, validated closed-reactor trajectories, and the figures derived from those trajectories.
+This repository organizes pulsed plasma-kinetic studies of ammonia synthesis.
+Versioned configurations describe the mechanism, reactor boundary, pulse,
+feed, and solver settings. Shared Python code audits inputs, prepares a local
+ZDPlasKin build, runs pulse horizons, and validates the generated outputs.
 
-## Current verified scope
+The project covers four model families: gas-phase or surface-assisted
+chemistry, each in closed 0D or 0D CSTR form. Case definitions live under
+`configs/`; shared runtime code lives under `src/pk2_pulse/` and command-line
+entry points under `scripts/`.
 
-The accepted results are for a **closed, zero-dimensional, pure-gas reactor**. The model is deliberately limited to gas-phase chemistry:
+## Scientific status
 
-- Hong gas-phase mechanism: 48 species and 469 reactions.
-- Surface reactions disabled.
-- Initial gas: `x(N2) = 0.1`, `x(H2) = 0.9`, `Tgas = 300 K`.
-- Fixed electron density: `1.17e8 cm^-3`.
-- Square-wave reduced electric field: 140 Td during discharge and 0 Td in afterglow.
-- Frequency: 10 kHz, so one period is 100 microseconds.
-- Duty cycle: 0.5, therefore `t_on = 50 microseconds` and `t_off = 50 microseconds`.
+The current Gas1 configuration is an initial-1-atm, constant-volume,
+fixed-400-K case with a 50-Td / 0-Td square-wave pulse at 10 kHz and 20% duty
+cycle. Its BOLSIG audit still identifies collision processes that are not
+directly supplied by the candidate cross-section source. A failed audit blocks
+the normal build and run path. The optional inverse-process construction is
+diagnostic only and does not establish a scientifically validated result.
 
-The closed-reactor model has no inlet, outlet, wall loss, or surface chemistry. Consequently, it is appropriate for studying early-time pulsed gas-phase accumulation, but it does **not** have a CSTR-style material steady state.
-
-## Validated closed-0D data
-
-The long-time trajectories use the stabilized integration configuration `ATOL = 1e8 cm^-3`, `RTOL = 1e-4`, `MXSTEP = 500000`, with 48 discharge and 32 afterglow substeps per pulse. Each listed trajectory passed its endpoint/time/phase validation.
-
-| Horizon | Number of periods | Final NH3 concentration (cm^-3) |
-| ---: | ---: | ---: |
-| 1 ms | 10 | `7.69698e13` |
-| 10 ms | 100 | `4.19398e14` |
-| 50 ms | 500 | `1.02479e15` |
-| 100 ms | 1000 | `1.68116e15` |
-| 200 ms | 2000 | `2.77599e15` |
-
-The 10--200 ms raw endpoint trajectories and per-cycle summaries are versioned in `GasPulse/0D/squarewave_T300K_N2-0p1_H2-0p9_EN140Td_f10kHz_d50/time_scan_rescue_20260912/`. PNG figures are in the matching `analysis/` directory.
+Existing closed-0D and CSTR trajectories are documented as diagnostic where
+the DVODE roundoff-warning or numerical-convergence checks have not passed.
+Do not present them as certified concentrations or periodic steady states.
+See the [cross-section decision record](docs/CROSS_SECTION_DECISION_GAS1.md)
+and [results and limitations](docs/RESULTS_AND_LIMITATIONS.md) for the current
+evidence and interpretation.
 
 ## Repository layout
 
 ```text
-configs/                             # versioned mechanism, reactor, pulse, and solver inputs
-mechanisms/                          # mechanism metadata and source/provenance instructions
-src/pk2_pulse/                       # shared future runtime and plotting implementation
-scripts/                             # command and plotting-recipe documentation
-studies/                             # versioned case sets and figure plans
-run_data/                            # local builds, raw case outputs, and logs (Git-ignored)
-generated_figures/                   # local batch-rendered figures (Git-ignored)
-docs/                                # scientific scope, reproducibility notes, selected final figures
-GasPulse/0D/                         # preserved legacy snapshot and accepted closed-0D data
+configs/                    # versioned case and shared solver/pulse inputs
+mechanisms/                 # mechanism sources, metadata, and required parameters
+src/pk2_pulse/              # shared configuration, audit, build, and run logic
+scripts/                    # preflight, simulation, scans, and plotting commands
+studies/                    # versioned study definitions
+docs/                       # project structure, methods, and result limitations
+GasPulse/0D/                # archived legacy scripts and historical data
+run_data/                   # local builds, manifests, logs, and case outputs
+generated_figures/          # local batch-rendered figures
 ```
 
-The repository is organized around four future model families: gas-phase and
-surface-assisted chemistry, each in closed 0D and 0D CSTR form.  A case is
-defined by a versioned configuration, while its large local calculation output
-is written under `run_data/` and is not committed.  Plotting code and plot
-recipes are versioned; batch-rendered images are not, unless a selected final
-figure is copied into `docs/figures/`.  See
-[the project-structure guide](docs/PROJECT_STRUCTURE.md).
+Configuration files and mechanism inputs are versioned. Generated case
+directories under `run_data/` and bulk figures under `generated_figures/` are
+Git-ignored; the current local `run_data/` contains the large per-case outputs.
+Only selected, reviewed results or figures belong in the repository. The
+[project structure guide](docs/PROJECT_STRUCTURE.md) describes the policy.
 
-Build products, DLLs, compiler objects, BOLSIG runtime files, execution logs,
-large local cases, and batch-rendered figures are intentionally excluded
-through `.gitignore`.
+## Local workflow
 
-## Running the local workflow
-
-The scripts were developed on Windows and expect the local Hong/ZDPlasKin helper stack already available in the author's wider workspace. The selected gas-phase and surface-assisted mechanism sources are versioned under `mechanisms/`; the legacy drivers still refer to a machine-local Hong runtime/tool directory. The archived accepted CSV files therefore remain the canonical data for this snapshot.
-
-With those prerequisites available, a local Python environment can run the baseline driver and the rescue time scan, for example:
+Install Python and the Fortran compiler, and place the local ZDPlasKin and
+BOLSIG source files in the locations described by
+[`external/README.md`](external/README.md). From the repository root, inspect
+the default Gas1 case with:
 
 ```powershell
-& 'E:\software\Anaconda\python.exe' 'GasPulse\0D\scripts\run_square_wave_0d.py'
-& 'E:\software\Anaconda\python.exe' 'GasPulse\0D\scripts\run_time_scan_rescue.py' --horizon-ms 100
+python scripts/preflight_pulse_case.py
 ```
 
-Do not run these commands in an existing result directory: the scripts intentionally refuse to overwrite previous attempts.
+This reports the resolved runtime and cross-section audit without creating a
+build directory. The runner also has a non-writing plan mode:
 
-## CSTR status
+```powershell
+python scripts/run_pulse_case.py --dry-run
+```
 
-An exploratory pulsed CSTR driver for `tau = 50 ms` is included as `run_square_wave_cstr_tau50ms.py`. Its CSTR source-term wiring compiled and passed static checks, but the first runtime attempt stalled before producing a first time-series endpoint. It is not represented as a scientific result and is excluded from the tracked data. See [the limitations note](docs/RESULTS_AND_LIMITATIONS.md) before using or extending it.
+Proceed with a normal run only when the BOLSIG audit is accepted. The
+`--append-detailed-balance-inverses` option is provided solely for explicitly
+labelled engineering diagnostics; its results are not an approved Gas1
+scientific dataset. The preflight, build, and run behavior is documented in
+[`scripts/README.md`](scripts/README.md).
 
-## Reproducibility and reporting notes
-
-- The trajectory figures use the initial point plus the end of each afterglow (`phase = 2`), so they show the cycle-to-cycle envelope rather than the within-period waveform.
-- In the closed reactor, NH3 increased during both the discharge and afterglow in late simulated cycles; a monotonic envelope does not imply absence of pulsed electron-energy modulation.
-- Do not describe the current results as CSTR, surface-assisted chemistry, energy efficiency, or a periodic steady state.
+Scripts retained under `GasPulse/0D/scripts/` are historical. Some depend on
+the former machine-local Hong/PK1 helper stack; use the shared workflow above
+for current work.

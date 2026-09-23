@@ -1,0 +1,19 @@
+schema_version: 1
+id: gas1-cstr0d-condition-ne1-000e-09-adaptive-retry
+includes:
+- gas1_T400K_N2-0p5_H2-0p5_P1atm_tau1ms_positive_unbounded_scan.yaml
+run:
+  horizons_ms:
+  - 1000.0
+  output_every_cycles: 100
+  timeout_s: 86400.0
+  solver_time_mode: phase_local
+  species_tolerance_mode: positive_radical_floor_unbounded
+n_sub_on: 240
+n_sub_off: 160
+initial_state:
+  electron_density_cm3: 1000000000.0
+feed:
+  electron_density_cm3: 1000000000.0
+notes: Gas1 CSTR condition scan/recovery run. Diagnostic positive_radical_floor_unbounded
+  numerical mode; compare with bounded baseline.

@@ -1,0 +1,14 @@
+schema_version: 1
+id: surf1-cstr0d-screen-ne1-000e-09-retry
+includes:
+- surf1-cstr0d-screen-ne1-000e-09.yaml
+run:
+  horizons_ms:
+  - 1000.0
+  output_every_cycles: 100
+  timeout_s: 86400.0
+  solver_time_mode: phase_local
+  species_tolerance_mode: positive_radical_floor_unbounded
+n_sub_on: 240
+n_sub_off: 160
+notes: Retry of the ne=1e9 cm-3 screening point with finer phase substeps.

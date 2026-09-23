@@ -24,6 +24,10 @@ __pycache__/
 **/other_para.dat
 **/REACTION_E_*.DAT
 **/ENTROPY_*.DAT
+!/mechanisms/surface_assisted/REACTION_E_IN.DAT
+!/mechanisms/surface_assisted/REACTION_E_BASIS.DAT
+!/mechanisms/surface_assisted/ENTROPY_PARA_IN.DAT
+!/mechanisms/surface_assisted/ENTROPY_INFO_BASIS.DAT
 
 # Machine-specific execution logs and interrupted exploratory runs
 **/*.log

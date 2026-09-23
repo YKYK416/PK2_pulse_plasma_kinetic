@@ -1,0 +1,13 @@
+schema_version: 1
+id: gas1_time_scan
+title: Gas1 closed-0D 50-Td time scan at 1 atm
+case_family: configs/gas_phase/closed_0d/gas1_T400K_N2-0p5_H2-0p5_P1atm.yaml
+horizons_ms: [1.0, 10.0, 50.0, 100.0, 200.0, 500.0, 1000.0]
+runner: scripts/run_pulse_case.py
+status: diagnostic_detailed_balance_only
+notes: >-
+  Each horizon runs in a separate working directory after one shared native
+  build. The --append-detailed-balance-inverses option is required for the
+  current candidate source and remains diagnostic-only until collision data and
+  numerical convergence are scientifically validated. Results are local
+  run_data artifacts and are not tracked by Git.

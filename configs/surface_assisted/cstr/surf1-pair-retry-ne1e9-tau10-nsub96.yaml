@@ -1,0 +1,14 @@
+schema_version: 1
+id: surf1-pair-retry-ne1e9-tau10-nsub96
+includes:
+- surf1-cstr0d-pair-ne-tau-ne1-000e-09-tau10ms.yaml
+run:
+  horizons_ms:
+  - 1000.0
+  output_every_cycles: 100
+  timeout_s: 86400.0
+  solver_time_mode: phase_local
+  species_tolerance_mode: positive_radical_floor_unbounded
+n_sub_on: 96
+n_sub_off: 64
+notes: Recovery run for the high electron density and long residence time pair point.

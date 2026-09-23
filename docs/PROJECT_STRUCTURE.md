@@ -85,10 +85,37 @@ cannot be expressed by a recipe.  Generated images default to
 `generated_figures/<study-id>/`; copy only publication-ready or documentation
 figures to `docs/figures/` when they should be tracked.
 
+## Gas1 execution path
+
+The active Gas1 path is deliberately staged:
+
+```text
+configs/ -> src/pk2_pulse/config.py -> src/pk2_pulse/bolsig.py
+         -> src/pk2_pulse/runtime.py -> src/pk2_pulse/driver.py
+         -> src/pk2_pulse/build.py -> scripts/run_pulse_case.py
+```
+
+The BOLSIG audit is a hard gate.  A failed audit may produce a JSON report or
+dry-run plan, but it must not create a build directory, compile a driver, or
+produce a simulation result.  The case-local build/output layout after an
+accepted audit is:
+
+```text
+run_data/<case-id>/
+├── manifest.json
+├── build/                 # staged vendor files and generated Fortran source
+└── results/
+    ├── 1ms/
+    ├── 10ms/
+    └── ...
+```
+
+Each horizon executes in its own working directory so BOLSIG and output files
+cannot collide during a parallel scan.
+
 ## Legacy snapshot
 
-`GasPulse/0D/` is preserved without relocation in this first organization
-step.  It contains the accepted gas-phase closed-0D rescue trajectories and
-the scripts that produced them.  Those scripts have external, machine-specific
-ZDPlasKin paths and should be migrated into the shared runtime only after the
-two mechanism sources and target ZDPlasKin environment are available.
+`GasPulse/0D/` is preserved without relocation. It contains the accepted
+gas-phase closed-0D rescue trajectories and the scripts that produced them.
+Those historical scripts retain external, machine-specific ZDPlasKin/PK1 paths;
+new Gas1 work must use the shared runtime path instead.

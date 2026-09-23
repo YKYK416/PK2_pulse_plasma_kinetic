@@ -1,0 +1,16 @@
+schema_version: 1
+id: gas1-cstr0d-condition-transition-en53-tau1-pos-n480-320-cert
+includes:
+- gas1_T400K_N2-0p5_H2-0p5_P1atm_tau1ms_positive_unbounded_scan.yaml
+run:
+  horizons_ms:
+  - 1000.0
+  output_every_cycles: 100
+  timeout_s: 86400.0
+  solver_time_mode: phase_local
+  species_tolerance_mode: positive_unbounded
+n_sub_on: 480
+n_sub_off: 320
+EN_on_Td: 53.0
+notes: Gas1 CSTR condition scan/recovery run. Diagnostic positive_unbounded numerical
+  mode; compare with bounded baseline.

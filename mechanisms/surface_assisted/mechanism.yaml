@@ -8,7 +8,13 @@ source_file_policy: project_managed
 source_provenance: PK1/Hong/Shao2024_JACSAu/dft_microkinetic_windows_case/kinet_source.txt
 sha256: 7ce49610345024ce7505433f27bf2dea3ab07d139b6130470c0464fbd0893cc5
 surface_site_initialization: required
+auxiliary_files:
+  - REACTION_E_IN.DAT
+  - REACTION_E_BASIS.DAT
+  - ENTROPY_PARA_IN.DAT
+  - ENTROPY_INFO_BASIS.DAT
 notes: >-
-  Project-managed Shao 2024 DFT microkinetic source.  Confirm the active
-  surface species and site-density convention before execution; do not
+  Project-managed Shao 2024 DFT microkinetic source with its four runtime
+  DFT/entropy parameter files.  The auxiliary files match the upstream
+  GitHub DFT-microkinetic Model_SA_Const_Entropy_base snapshot; do not
   substitute the gas-phase mechanism for this case family.

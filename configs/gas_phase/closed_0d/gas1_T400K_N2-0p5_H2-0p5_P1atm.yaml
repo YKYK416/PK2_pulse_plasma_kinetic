@@ -1,0 +1,35 @@
+schema_version: 1
+id: gas1-closed0d-T400K-N2-0p5-H2-0p5-P1atm
+includes:
+  - ../../common/pulse_10khz_20duty_EN50Td.yaml
+  - ../../common/solver_stable.yaml
+mechanism: gas_phase
+reactor:
+  id: closed_0d
+  flow: disabled
+  surface_reactions: disabled
+  wall_relaxation: enabled
+  thermodynamic_boundary: constant_volume
+  gas_heating: disabled
+initial_state:
+  pressure_Pa: 101325.0
+  pressure_role: initial_state_only
+  gas_temperature_K: 400.0
+  mole_fractions: {N2: 0.5, H2: 0.5}
+  electron_density_cm3: 1.17e8
+plasma_model:
+  electron_density_mode: prescribed_constant
+  charge_compensation: implicit_stationary_background
+run:
+  horizons_ms: [1.0, 10.0, 50.0, 100.0, 200.0, 500.0, 1000.0]
+  parallel_workers_default: 3
+cross_sections:
+  source: ../../../../bolsigplus072024-win/SigloDataBase-LXCat-04Jun2013.txt
+  status: audit_required
+notes: >-
+  This is an initial-1-atm, constant-volume, fixed-400-K chemistry case with
+  wall relaxation retained using the mechanism's geometry and wall parameters.
+  Electron density is externally prescribed with an implicit stationary
+  neutralizing background, not a self-consistent discharge calculation. The
+  cross-section source is a candidate only until all requested BOLSIG
+  processes are scientifically audited.

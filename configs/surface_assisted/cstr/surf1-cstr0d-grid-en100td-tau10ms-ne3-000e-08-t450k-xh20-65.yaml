@@ -1,0 +1,29 @@
+schema_version: 1
+id: surf1-cstr0d-grid-en100td-tau10ms-ne3-000e-08-t450k-xh20-65
+includes:
+- surf1_T400K_N2-0p5_H2-0p5_P1atm_tau1ms_scan.yaml
+run:
+  horizons_ms:
+  - 1000.0
+  output_every_cycles: 100
+  timeout_s: 86400.0
+  solver_time_mode: phase_local
+  species_tolerance_mode: positive_radical_floor_unbounded
+notes: Surf1 second-stage targeted multifactor screening at a 1000 ms horizon.
+EN_on_Td: 100.0
+reactor:
+  residence_time_s: 0.01
+initial_state:
+  electron_density_cm3: 300000000.0
+  gas_temperature_K: 450.0
+  mole_fractions:
+    N2: 0.35
+    H2: 0.65
+feed:
+  electron_density_cm3: 300000000.0
+  gas_temperature_K: 450.0
+  mole_fractions:
+    N2: 0.35
+    H2: 0.65
+n_sub_on: 240
+n_sub_off: 160

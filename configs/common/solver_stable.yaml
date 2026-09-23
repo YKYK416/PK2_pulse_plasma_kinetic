@@ -6,6 +6,6 @@ MXSTEP: 500000
 n_sub_on: 48
 n_sub_off: 32
 notes: >-
-  Stabilized long-time settings used by the accepted gas-phase closed-0D rescue
-  trajectories.  Revalidate before applying them to a different mechanism or
-  reactor boundary.
+  Pulse substepping, tolerances, and the injected DVODE MXSTEP limit for the
+  Gas1 closed-0D diagnostic. Revalidate before applying them to a different
+  mechanism or reactor boundary.

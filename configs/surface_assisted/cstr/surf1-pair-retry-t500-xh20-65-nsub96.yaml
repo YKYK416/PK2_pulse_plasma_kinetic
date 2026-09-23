@@ -1,0 +1,14 @@
+schema_version: 1
+id: surf1-pair-retry-t500-xh20-65-nsub96
+includes:
+- surf1-cstr0d-pair-t-xh2-t500k-xh20-65.yaml
+run:
+  horizons_ms:
+  - 1000.0
+  output_every_cycles: 100
+  timeout_s: 86400.0
+  solver_time_mode: phase_local
+  species_tolerance_mode: positive_radical_floor_unbounded
+n_sub_on: 96
+n_sub_off: 64
+notes: Recovery run for the 500 K and xH2 0.65 pair point.

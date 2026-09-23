@@ -1,0 +1,44 @@
+schema_version: 1
+id: gas1-cstr0d-T400K-N2-0p5-H2-0p5-P1atm-tau1ms-scan
+includes:
+  - ../../common/pulse_10khz_20duty_EN50Td.yaml
+  - ../../common/solver_stable.yaml
+mechanism: gas_phase
+reactor:
+  id: cstr_0d
+  flow: enabled
+  residence_time_s: 1.0e-3
+  flow_species: gas_heavy_species
+  excluded_from_flow: [electrons, algebraic_third_bodies, surface_states]
+  surface_reactions: disabled
+  wall_relaxation: enabled
+  thermodynamic_boundary: constant_volume
+  gas_heating: disabled
+initial_state:
+  pressure_Pa: 101325.0
+  pressure_role: feed_and_initial_state
+  gas_temperature_K: 400.0
+  mole_fractions: {N2: 0.5, H2: 0.5}
+  electron_density_cm3: 1.17e8
+feed:
+  pressure_Pa: 101325.0
+  gas_temperature_K: 400.0
+  mole_fractions: {N2: 0.5, H2: 0.5}
+  electron_density_cm3: 1.17e8
+plasma_model:
+  electron_density_mode: prescribed_constant
+  charge_compensation: implicit_stationary_background
+run:
+  horizons_ms: [1.0, 10.0, 50.0, 100.0, 200.0, 500.0, 1000.0, 2000.0, 5000.0, 10000.0]
+  parallel_workers_default: 3
+  output_every_cycles: 100
+  timeout_s: 86400.0
+cross_sections:
+  source: ../../../../bolsigplus072024-win/SigloDataBase-LXCat-04Jun2013.txt
+  status: audit_required
+notes: >-
+  Gas1 constant-volume CSTR diagnostic.  The inlet feed is the same 400 K,
+  1 atm, 1:1 N2/H2 state as the initial condition.  The residence time is
+  1 ms.  Flow is applied only to gas-heavy species; electrons and surface
+  states remain prescribed/excluded.  The CSTR source is injected into the
+  case-local ZDPlasKin RHS and Jacobian during the build.

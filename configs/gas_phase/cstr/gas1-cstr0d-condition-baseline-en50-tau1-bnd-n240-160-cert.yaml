@@ -1,0 +1,15 @@
+schema_version: 1
+id: gas1-cstr0d-condition-baseline-en50-tau1-bnd-n240-160-cert
+includes:
+- gas1_T400K_N2-0p5_H2-0p5_P1atm_tau1ms_positive_unbounded_scan.yaml
+run:
+  horizons_ms:
+  - 1000.0
+  output_every_cycles: 100
+  timeout_s: 86400.0
+  solver_time_mode: phase_local
+  species_tolerance_mode: scalar
+n_sub_on: 240
+n_sub_off: 160
+notes: Gas1 CSTR condition scan/recovery run. Diagnostic scalar numerical mode; compare
+  with bounded baseline.

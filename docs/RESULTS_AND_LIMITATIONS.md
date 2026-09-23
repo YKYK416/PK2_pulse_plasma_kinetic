@@ -6,6 +6,15 @@ The tracked numerical dataset is the `attempt_02` closed-0D rescue series at 10,
 
 The modified long-time configuration was introduced after an earlier 10/50 ms run encountered DVODE step-size stagnation. It changes solver controls only, not the chemistry, temperature, feed composition, fixed electron density, field waveform, or surface-reaction status.
 
+The current runner records the vendor DVODE `T + H = T` roundoff warning
+count in every horizon manifest and refuses to call a horizon numerically
+accepted when that count is nonzero. These messages are emitted by DVODE with
+the explicit text that it will continue, so they are not equivalent to a
+negative solver return; they are nevertheless a failed numerical-quality gate
+for long-time trend claims until a tolerance/step-size sensitivity study
+passes. The current 1 ms/1000 ms reference trajectories still contain such
+warnings, so their absolute concentrations and linearity remain diagnostic.
+
 ## What the figures show
 
 The figures sample a common pulse phase: the initial condition and each afterglow-end point (`phase = 2`). This is a stroboscopic trajectory. It suppresses the 50 microsecond on/off-scale modulation in favor of the slow accumulation envelope.
@@ -36,11 +45,42 @@ A gas-phase CSTR would instead introduce inlet/outlet coupling,
 
 Only the latter can generally approach a phase-consistent periodic reactor state under a repeated pulse, subject to convergence checks. It is not valid to infer a CSTR steady state from the present closed-reactor series.
 
-## CSTR exploratory attempt: not an accepted result
+## CSTR diagnostic scan: not numerically accepted
 
-The project contains a first pulsed CSTR implementation for `tau = 50 ms`. It retains the generated `ZDPlasKin_set_cstr_flow(tau_res, feed_density)` call, so the CSTR source is intended to be coupled into the heavy-species RHS; fixed electrons, algebraic third bodies, and surface states are excluded from the flow mask. The input waveform is still 10 kHz / 50% duty cycle, i.e. 50 microseconds on and 50 microseconds off.
+The shared runner now supports a case-local gas-heavy-species CSTR source and
+Jacobian patch. The production scan applies the linear flow term with an
+exact exponential map in Strang-split chemistry substeps. The equivalent
+continuous source has the form
+`ZDPlasKin_set_cstr_flow(tau_res, feed_density)`, with fixed electrons and
+surface states excluded from the flow mask. A complete Gas1 scan at
+`tau_res = 1 ms` is recorded in `docs/GAS1_CSTR_TAU1MS_SCAN_20260921.md`.
 
-The CSTR build succeeded, but its initial run stalled before creating a `pulse_series` CSV and consumed no measurable CPU after BOLSIG initialization. It was deliberately stopped and is not part of the repository's tracked data. The driver should be diagnosed with a small, foreground smoke test before any long CSTR calculation is attempted.
+The baseline CSTR scan completed all requested horizons with return code `0`
+and valid phase/time/species/rate structures, but every horizon still emitted
+DVODE `T + H = T` warnings. It is therefore a diagnostic CSTR result, not a
+numerically accepted steady-state dataset.
+
+The warning mechanism was then isolated to the DVODE non-negative
+bound-retraction path for low-density states. A separate case-local
+`positive_unbounded` diagnostic mode now evaluates rates on a non-negative
+trial state, allows DVODE to avoid the machine-precision retraction loop, and
+projects accepted states back to the non-negative domain. The complete
+1–10,000 ms CSTR scan under that mode has zero `T + H = T` messages, zero
+solver errors, and no negative sampled endpoints; its NH₃ plateau is about
+`1.54476e8 cm^-3`. Because this changes the numerical trajectory relative to
+the bounded baseline, it is a warning-free diagnostic sensitivity run, not yet
+a mechanism-certified replacement. A native positivity-preserving integrator
+or an independent solver comparison is still required for certification.
+
+The seven condition-scan points that still failed in the scalar positive mode
+were recovered with a separate `positive_radical_floor_unbounded` diagnostic
+mode. It combines the non-negative trial-state projection with relaxed
+per-species absolute tolerances for low-density excited, radical, ionic, and
+surface states, and uses `n_sub_on=240`, `n_sub_off=160`. All seven recovery
+runs reached 1000 ms with zero DVODE errors, zero `T + H = T` warnings, valid
+species/rate structures, and no negative sampled endpoints. This improves
+solver robustness but remains a numerical diagnostic, not a certification of
+absolute concentration accuracy.
 
 ## Data-use guidance
 

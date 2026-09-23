@@ -1,0 +1,10 @@
+schema_version: 1
+id: gas1-closed0d-T400K-N2-0p5-H2-0p5-P1atm-loose-test-1ms
+includes:
+  - gas1_T400K_N2-0p5_H2-0p5_P1atm_numerical_test.yaml
+ATOL_cm3: 1.0e10
+RTOL: 1.0e-3
+notes: >-
+  Short diagnostic of a looser DVODE tolerance.  This profile is used only
+  to identify whether warning production is caused by an over-demanded error
+  target; it is not a candidate scientific result by itself.

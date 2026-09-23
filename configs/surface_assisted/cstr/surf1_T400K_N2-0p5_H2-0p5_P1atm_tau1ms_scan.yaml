@@ -1,0 +1,64 @@
+schema_version: 1
+id: surf1-cstr0d-T400K-N2-0p5-H2-0p5-P1atm-tau1ms-scan
+includes:
+  - ../../common/pulse_10khz_20duty_EN50Td.yaml
+  - ../../common/solver_stable.yaml
+mechanism: surface_assisted
+surface_auxiliary_files:
+  - REACTION_E_IN.DAT
+  - REACTION_E_BASIS.DAT
+  - ENTROPY_PARA_IN.DAT
+  - ENTROPY_INFO_BASIS.DAT
+surface:
+  site_density_cm3: 2.91234567901235e17
+  initial_densities_cm3:
+    Surf: 2.91234567901235e17
+    HSurf: 0.0
+    NSurf: 0.0
+    NHSurf: 0.0
+    NH2Surf: 0.0
+reactor:
+  id: cstr_0d
+  flow: enabled
+  residence_time_s: 1.0e-3
+  flow_species: gas_heavy_species
+  excluded_from_flow: [electrons, algebraic_third_bodies, surface_states]
+  surface_reactions: enabled
+  surface_site_initialization: required
+  wall_relaxation: enabled
+  thermodynamic_boundary: constant_volume
+  gas_heating: disabled
+initial_state:
+  pressure_Pa: 101325.0
+  pressure_role: feed_and_initial_state
+  gas_temperature_K: 400.0
+  mole_fractions: {N2: 0.5, H2: 0.5}
+  electron_density_cm3: 1.17e8
+feed:
+  pressure_Pa: 101325.0
+  gas_temperature_K: 400.0
+  mole_fractions: {N2: 0.5, H2: 0.5}
+  electron_density_cm3: 1.17e8
+plasma_model:
+  electron_density_mode: prescribed_constant
+  charge_compensation: implicit_stationary_background
+run:
+  horizons_ms: [1.0, 10.0, 50.0, 100.0, 200.0, 500.0, 1000.0, 2000.0, 5000.0, 10000.0]
+  output_every_cycles: 100
+  timeout_s: 86400.0
+  solver_time_mode: phase_local
+  species_tolerance_mode: positive_radical_floor_unbounded
+n_sub_on: 96
+n_sub_off: 64
+cross_sections:
+  source: ../../../../bolsigplus072024-win/SigloDataBase-LXCat-04Jun2013.txt
+status: ready_for_surface_cstr_scan
+notes: >-
+  Surf1 is the Gas1 CSTR condition with the project-managed active surface
+  mechanism. Gas-heavy species receive the CSTR inlet/outlet term; electrons
+  and all surface states remain outside the flow mask. Surface site density is
+  the mechanism's Tot_sur converted by 0.5*V/(A*roughness). The four auxiliary
+  mechanism data files must be supplied beside kinet_source.txt before the
+  native build and time scan can run. The scan uses 96/64 pulse-phase
+  substepping and the positive radical-floor tolerance mode because the coarser
+  48/32 setting reaches a DVODE corrector-convergence failure near 10 ms.

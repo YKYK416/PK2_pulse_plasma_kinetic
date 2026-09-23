@@ -1,0 +1,13 @@
+schema_version: 1
+id: gas1-closed0d-T400K-N2-0p5-H2-0p5-P1atm-long-2s-5s-10s
+includes:
+  - gas1_T400K_N2-0p5_H2-0p5_P1atm.yaml
+run:
+  horizons_ms: [2000.0, 5000.0, 10000.0]
+  output_every_cycles: 100
+  timeout_s: 86400.0
+notes: >-
+  Long diagnostic scan after numerical convergence screening.  Every 100
+  cycles (10 ms) is sampled for the full gas-species endpoint table, with the
+  final cycle always retained.  A run is accepted only when its DVODE log has
+  zero T+H=T warnings and zero DVODE error states.

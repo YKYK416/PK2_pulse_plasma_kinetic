@@ -1,0 +1,10 @@
+schema_version: 1
+id: gas1-closed0d-T400K-N2-0p5-H2-0p5-P1atm-nsub2-test-1ms
+includes:
+  - gas1_T400K_N2-0p5_H2-0p5_P1atm_numerical_test.yaml
+n_sub_on: 2
+n_sub_off: 2
+notes: >-
+  Short diagnostic of outer pulse-segment subdivision.  It is not a
+  production setting; it tests whether excessive DVODE restarts at the
+  default 48/32 subdivision are contributing to T+H=T warnings.

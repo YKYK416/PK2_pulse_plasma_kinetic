@@ -1,0 +1,14 @@
+schema_version: 1
+id: surf1-grid-stability-test-nsub960
+includes:
+- surf1-cstr0d-grid-en75td-tau3ms-ne3-000e-08-t450k-xh20-65.yaml
+run:
+  horizons_ms:
+  - 1000.0
+  output_every_cycles: 100
+  timeout_s: 86400.0
+  solver_time_mode: phase_local
+  species_tolerance_mode: positive_radical_floor_unbounded
+n_sub_on: 960
+n_sub_off: 640
+notes: Stability test for the second-stage Surf1 multifactor scan.
